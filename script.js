@@ -14,8 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
         ageDisplay.textContent = `${age} Anos`;
     }
 
-    // Inicializar o Player de Vídeo
+    // Inicializar Player e Layout Padrão
     initVideoPlayer();
+    setDefaultLayout();
 });
 
 // 2. ANIMAÇÃO DE ENTRADA AO ROLAR
@@ -34,10 +35,9 @@ function reveal(){
 }
 reveal(); 
 
-// 3. EFEITO DE PRIMAVERA (APENAS PÉTALAS)
+// 3. EFEITO DE PRIMAVERA
 const canvas = document.getElementById('petalCanvas');
 const ctx = canvas.getContext('2d');
-
 let width, height;
 let petals = [];
 
@@ -106,9 +106,8 @@ function animate() {
 animate();
 
 // ==========================================
-// 4. CONFIGURAÇÕES (ENGRENAGEM)
+// 4. CONFIGURAÇÕES
 // ==========================================
-
 const settingsBtn = document.getElementById('settings-btn');
 const settingsPanel = document.getElementById('settings-panel');
 const opacitySlider = document.getElementById('opacity-slider');
@@ -129,6 +128,7 @@ opacitySlider.addEventListener('input', (e) => {
     document.documentElement.style.setProperty('--glass-alpha', val);
 });
 
+// CORREÇÃO DO LAYOUT (Removido conflito de Media Query)
 window.changeLayout = function(type) {
     const grids = document.querySelectorAll('.grid-container');
     let gridTemplate = '';
@@ -137,7 +137,14 @@ window.changeLayout = function(type) {
         case '1': gridTemplate = '1fr'; break;
         case '2': gridTemplate = 'repeat(2, 1fr)'; break;
         case '3': gridTemplate = 'repeat(3, 1fr)'; break;
-        case 'auto': gridTemplate = 'repeat(auto-fit, minmax(280px, 1fr))'; break;
+        case 'auto': 
+            // Lógica "Auto" inteligente baseada na largura da tela
+            if(window.innerWidth > 768) {
+                gridTemplate = 'repeat(auto-fit, minmax(280px, 1fr))';
+            } else {
+                gridTemplate = '1fr';
+            }
+            break;
     }
 
     grids.forEach(grid => {
@@ -145,10 +152,22 @@ window.changeLayout = function(type) {
     });
 };
 
+// Define o layout padrão ao carregar para evitar bugs
+function setDefaultLayout() {
+    if(window.innerWidth > 768) {
+        changeLayout('auto');
+    } else {
+        changeLayout('1');
+    }
+}
+
 // ==========================================
-// 5. LÓGICA DO PLAYER DE VÍDEO
+// 5. PLAYER DE VÍDEO
 // ==========================================
 function initVideoPlayer() {
+    const openBtn = document.getElementById('openVideoBtn');
+    const videoWrapper = document.getElementById('videoWrapper');
+    
     const video = document.getElementById('mainVideo');
     const centerPlayBtn = document.getElementById('centerPlayBtn');
     const playPauseBtn = document.getElementById('playPauseBtn');
@@ -156,35 +175,41 @@ function initVideoPlayer() {
     const progressBar = document.getElementById('progressBar');
     const videoTime = document.getElementById('videoTime');
     
-    // Ícones SVG
     const playIcon = document.getElementById('playIcon');
     const pauseIcon = document.getElementById('pauseIcon');
+
+    // Abrir o vídeo
+    openBtn.addEventListener('click', () => {
+        openBtn.style.display = 'none'; // Esconde botão
+        videoWrapper.classList.remove('hidden'); // Mostra player
+        // Pequeno scroll suave para o vídeo
+        videoWrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Tenta dar play automaticamente (alguns navegadores bloqueiam autoplay com som)
+        video.play().catch(e => console.log("Autoplay bloqueado pelo navegador"));
+    });
 
     function togglePlay() {
         if (video.paused) {
             video.play();
             playIcon.style.display = 'none';
             pauseIcon.style.display = 'block';
-            centerPlayBtn.style.display = 'none'; // Esconde o botão grande
+            centerPlayBtn.style.display = 'none';
         } else {
             video.pause();
             playIcon.style.display = 'block';
             pauseIcon.style.display = 'none';
-            centerPlayBtn.style.display = 'flex'; // Mostra o botão grande
+            centerPlayBtn.style.display = 'flex';
         }
     }
 
-    // Event Listeners
     centerPlayBtn.addEventListener('click', togglePlay);
     playPauseBtn.addEventListener('click', togglePlay);
-    video.addEventListener('click', togglePlay); // Clicar no video também pausa
+    video.addEventListener('click', togglePlay);
 
-    // Atualizar barra de progresso
     video.addEventListener('timeupdate', () => {
         const progress = (video.currentTime / video.duration) * 100;
         progressBar.style.width = `${progress}%`;
         
-        // Atualizar timer
         let currentMin = Math.floor(video.currentTime / 60);
         let currentSec = Math.floor(video.currentTime % 60);
         if (currentSec < 10) currentSec = `0${currentSec}`;
@@ -196,7 +221,6 @@ function initVideoPlayer() {
         videoTime.textContent = `${currentMin}:${currentSec} / ${durationMin}:${durationSec}`;
     });
 
-    // Clicar na barra para avançar/retroceder
     progressArea.addEventListener('click', (e) => {
         const progressWidth = progressArea.clientWidth;
         const clickedOffsetX = e.offsetX;
@@ -204,4 +228,4 @@ function initVideoPlayer() {
         
         video.currentTime = (clickedOffsetX / progressWidth) * duration;
     });
-            }
+                                   }
