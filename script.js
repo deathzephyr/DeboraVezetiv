@@ -91,7 +91,7 @@ class Petal {
     }
 }
 
-// Criar pétalas iniciais (Menos no celular para performance)
+// Criar pétalas iniciais
 const petalCount = window.innerWidth < 768 ? 20 : 40;
 for (let i = 0; i < petalCount; i++) {
     petals.push(new Petal());
@@ -110,3 +110,57 @@ function animate() {
     requestAnimationFrame(animate);
 }
 animate();
+
+// ==========================================
+// 4. CONFIGURAÇÕES (ENGRENAGEM)
+// ==========================================
+
+const settingsBtn = document.getElementById('settings-btn');
+const settingsPanel = document.getElementById('settings-panel');
+const opacitySlider = document.getElementById('opacity-slider');
+
+// Abrir/Fechar Painel
+settingsBtn.addEventListener('click', (e) => {
+    e.stopPropagation(); // Impede que o clique feche imediatamente
+    settingsPanel.classList.toggle('hidden');
+});
+
+// Fechar painel se clicar fora
+document.addEventListener('click', (e) => {
+    if (!settingsPanel.contains(e.target) && !settingsBtn.contains(e.target)) {
+        settingsPanel.classList.add('hidden');
+    }
+});
+
+// Controlar Opacidade
+opacitySlider.addEventListener('input', (e) => {
+    const val = e.target.value;
+    // Atualiza a variável CSS global
+    document.documentElement.style.setProperty('--glass-alpha', val);
+});
+
+// Controlar Layout (Fileiras)
+window.changeLayout = function(type) {
+    const grids = document.querySelectorAll('.grid-container');
+    let gridTemplate = '';
+
+    switch(type) {
+        case '1':
+            gridTemplate = '1fr';
+            break;
+        case '2':
+            gridTemplate = 'repeat(2, 1fr)';
+            break;
+        case '3':
+            gridTemplate = 'repeat(3, 1fr)';
+            break;
+        case 'auto':
+            gridTemplate = 'repeat(auto-fit, minmax(280px, 1fr))';
+            break;
+    }
+
+    // Aplica a todos os containers
+    grids.forEach(grid => {
+        grid.style.gridTemplateColumns = gridTemplate;
+    });
+};
