@@ -11,16 +11,11 @@
 }
 
 :root {
-    /* Cores sutis para não brigar com a foto */
     --primary-pink: #ff5e8e;
     --primary-red: #d6334c;
     --text-main: #ffffff;
     --text-secondary: #f8f9fa;
-    
-    /* Variável para controle de opacidade */
     --glass-alpha: 0.1; 
-    
-    /* Configurações do Vidro (Glassmorphism) */
     --glass-bg: rgba(255, 255, 255, var(--glass-alpha));
     --glass-border: rgba(255, 255, 255, 0.2);
     --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
@@ -32,11 +27,7 @@ body {
     min-height: 100vh;
     line-height: 1.6;
     overflow-x: hidden;
-    
-    /* Cor de fundo preta para evitar o espaço branco no final */
     background-color: #000;
-    
-    /* IMAGEM DE FUNDO (img.jpeg) */
     background-image: url('img.jpeg');
     background-size: cover;
     background-position: center;
@@ -44,7 +35,6 @@ body {
     background-repeat: no-repeat;
 }
 
-/* Sobreposição escura */
 .bg-overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -53,7 +43,6 @@ body {
     backdrop-filter: blur(3px);
 }
 
-/* Canvas das Pétalas */
 #petalCanvas {
     position: fixed;
     top: 0;
@@ -65,38 +54,35 @@ body {
 }
 
 /* =========================================
-   BOTÃO E PAINEL DE CONFIGURAÇÕES
+   BOTÃO DE CONFIGURAÇÕES (Simples)
    ========================================= */
 #settings-btn {
     position: fixed;
     top: 20px;
     right: 20px;
-    font-size: 2rem;
+    font-size: 1.5rem; /* Menor */
     cursor: pointer;
     z-index: 10002;
-    background: rgba(255, 255, 255, 0.2);
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255,255,255,0.3);
-    transition: transform 0.3s ease, background 0.3s;
+    /* Apenas o ícone, sem fundo complexo */
+    background: none; 
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
 }
 
 #settings-btn:hover {
+    color: #fff;
     transform: rotate(90deg);
-    background: rgba(255, 255, 255, 0.4);
 }
 
+/* Painel (Manteve o estilo, mas posicionado melhor) */
 .settings-panel {
     position: fixed;
-    top: 80px;
+    top: 60px;
     right: 20px;
     width: 250px;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.85);
     border: 1px solid var(--primary-pink);
     border-radius: 15px;
     padding: 20px;
@@ -117,6 +103,7 @@ body {
     margin-bottom: 15px;
     font-family: 'Playfair Display', serif;
     color: var(--primary-pink);
+    font-size: 1.1rem;
     border-bottom: 1px solid rgba(255,255,255,0.1);
     padding-bottom: 5px;
 }
@@ -128,7 +115,7 @@ body {
 .control-group label {
     display: block;
     margin-bottom: 8px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #ddd;
 }
 
@@ -140,7 +127,7 @@ body {
 .layout-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 5px;
+    gap: 8px;
 }
 
 .layout-buttons button {
@@ -151,6 +138,7 @@ body {
     border-radius: 5px;
     cursor: pointer;
     transition: background 0.2s;
+    font-size: 0.85rem;
 }
 
 .layout-buttons button:hover {
@@ -158,7 +146,7 @@ body {
 }
 
 /* =========================================
-   RESTANTE DO CSS
+   LAYOUT GERAL
    ========================================= */
 ul { list-style: none; }
 a { text-decoration: none; color: inherit; }
@@ -263,7 +251,7 @@ section {
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-/* CARDS */
+/* CARDS E GRID */
 .about-card {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
@@ -291,7 +279,8 @@ section {
     display: grid;
     grid-template-columns: 1fr;
     gap: 25px;
-    transition: all 0.3s ease;
+    /* TRANSIÇÃO SUAVE PARA CORRIGIR O BUG AO CLICAR */
+    transition: grid-template-columns 0.4s ease;
 }
 
 .card {
@@ -303,18 +292,14 @@ section {
     -webkit-backdrop-filter: blur(12px);
     box-shadow: var(--glass-shadow);
     transition: transform 0.3s ease, background 0.3s ease;
+    /* Garante que o card não estoure o layout */
+    min-width: 0; 
 }
 
 .card:hover {
     transform: translateY(-5px);
     background: rgba(255, 255, 255, 0.15);
     border-color: rgba(255, 255, 255, 0.4);
-}
-
-@media (min-width: 768px) {
-    .grid-container {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    }
 }
 
 .card-header {
@@ -343,6 +328,7 @@ section {
     font-size: 0.95rem;
     padding-left: 20px;
     position: relative;
+    word-wrap: break-word;
 }
 
 .card ul li::before {
@@ -382,7 +368,45 @@ section {
 }
 
 /* =========================================
-   PLAYER DE VÍDEO PERSONALIZADO
+   BOTÃO DA EDIT (NOVO)
+   ========================================= */
+.video-section {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.edit-button {
+    background: linear-gradient(135deg, var(--primary-pink), var(--primary-red));
+    border: none;
+    border-radius: 50px;
+    padding: 15px 40px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 94, 142, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.edit-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(255, 94, 142, 0.6);
+}
+
+.btn-icon {
+    font-size: 1.2rem;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* =========================================
+   PLAYER DE VÍDEO
    ========================================= */
 .custom-video-container {
     max-width: 800px;
@@ -393,7 +417,6 @@ section {
     background: #000;
     box-shadow: 0 10px 40px rgba(0,0,0,0.5);
     border: 1px solid var(--glass-border);
-    /* Aspect ratio fixo para evitar pulos de layout */
     width: 100%;
 }
 
@@ -403,7 +426,6 @@ section {
     border-radius: 20px;
 }
 
-/* Botão Central (Grande) */
 .center-play-btn {
     position: absolute;
     top: 50%;
@@ -429,7 +451,6 @@ section {
     box-shadow: 0 0 20px rgba(255, 94, 142, 0.6);
 }
 
-/* Barra de Controles Inferior */
 .video-controls {
     position: absolute;
     bottom: 0;
@@ -446,12 +467,10 @@ section {
     border-bottom-right-radius: 20px;
 }
 
-/* Mostrar controles ao passar o mouse no container */
 .custom-video-container:hover .video-controls {
     opacity: 1;
 }
 
-/* Botão Play/Pause pequeno */
 .control-btn {
     background: none;
     border: none;
@@ -469,7 +488,6 @@ section {
     background: rgba(255, 255, 255, 0.2);
 }
 
-/* Barra de Progresso */
 .progress-area {
     height: 6px;
     flex-grow: 1;
@@ -488,7 +506,6 @@ section {
     transition: width 0.1s linear;
 }
 
-/* Bolinha no final da barra (Thumb) */
 .progress-thumb {
     width: 14px;
     height: 14px;
@@ -505,7 +522,6 @@ section {
     opacity: 1;
 }
 
-/* Timer */
 .video-time {
     color: #fff;
     font-size: 0.85rem;
@@ -555,7 +571,6 @@ footer {
     backdrop-filter: blur(5px);
 }
 
-/* Animações Keyframes */
 @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
@@ -564,14 +579,6 @@ footer {
 @media (max-width: 400px) {
     .hero h1 { font-size: 2.2rem; }
     .avatar { width: 160px; height: 160px; }
-    
-    /* Ajuste para mobile no video */
-    .video-controls {
-        opacity: 1; /* Sempre visível no mobile pois não tem hover */
-        padding-bottom: 20px;
-    }
-    .video-time {
-        font-size: 0.7rem;
-        min-width: 70px;
-    }
+    .video-controls { opacity: 1; padding-bottom: 20px; }
+    .video-time { font-size: 0.7rem; min-width: 70px; }
    }
