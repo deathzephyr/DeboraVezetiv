@@ -16,12 +16,9 @@
     --text-main: #ffffff;
     --text-secondary: #f8f9fa;
     
-    /* Opacidade zerada para transparência total */
-    --glass-alpha: 0; 
-    
-    /* Fundo definido explicitamente como transparente */
+    /* Variáveis definidas, mas vamos forçar o transparente na classe */
     --glass-bg: transparent;
-    --glass-border: rgba(255, 255, 255, 0.3); /* Borda um pouco mais forte para compensar o fundo */
+    --glass-border: rgba(255, 255, 255, 0.4); /* Borda mais forte para definir o quadrado */
     --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
 }
 
@@ -42,9 +39,9 @@ body {
 .bg-overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.4); /* Escurece o fundo para ler o texto */
+    background: rgba(0, 0, 0, 0.4);
     z-index: -1;
-    backdrop-filter: blur(3px);
+    /* Removi o blur do overlay para máxima clareza */
 }
 
 #petalCanvas {
@@ -173,13 +170,11 @@ section {
 
 /* CARDS E GRID */
 .about-card {
-    background: var(--glass-bg); /* Transparente */
+    background: transparent !important; /* FORÇA TRANSPARÊNCIA */
     border: 1px solid var(--glass-border);
     border-radius: 20px;
     padding: 40px;
-    /* Removido o backdrop-filter para ficar mais limpo/cristalino, ou pode deixar se quiser */
-    backdrop-filter: blur(5px); 
-    -webkit-backdrop-filter: blur(5px);
+    /* REMOVIDO: backdrop-filter e -webkit-backdrop-filter */
     box-shadow: var(--glass-shadow);
     text-align: center;
     margin-bottom: 40px;
@@ -188,21 +183,21 @@ section {
 .about-card p {
     font-size: 1.1rem;
     color: #f0f0f0;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.8); /* Sombra no texto forte para leitura */
+    text-shadow: 0 2px 4px rgba(0,0,0,1); /* Sombra forte no texto */
 }
 
 .highlight-text {
     color: var(--primary-pink);
     font-weight: 700;
+    text-shadow: 0 0 10px rgba(0,0,0,0.8);
 }
 
 .grid-container {
     display: grid;
-    grid-template-columns: 1fr; /* Padrão Mobile */
+    grid-template-columns: 1fr;
     gap: 25px;
 }
 
-/* Layout Padrão Desktop */
 @media (min-width: 768px) {
     .grid-container {
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -210,12 +205,11 @@ section {
 }
 
 .card {
-    background: var(--glass-bg); /* Transparente */
+    background: transparent !important; /* FORÇA TRANSPARÊNCIA */
     border: 1px solid var(--glass-border);
     border-radius: 20px;
     padding: 30px;
-    backdrop-filter: blur(5px); /* Leve desfoque apenas para legibilidade */
-    -webkit-backdrop-filter: blur(5px);
+    /* REMOVIDO: backdrop-filter e -webkit-backdrop-filter */
     box-shadow: var(--glass-shadow);
     transition: transform 0.3s ease, border-color 0.3s ease;
     min-width: 0; 
@@ -223,15 +217,14 @@ section {
 
 .card:hover {
     transform: translateY(-5px);
-    /* Fundo continua transparente, borda fica mais visível */
-    border-color: rgba(255, 255, 255, 0.6);
+    border-color: #fff;
 }
 
 .card-header {
     display: flex;
     align-items: center;
     margin-bottom: 15px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
     padding-bottom: 10px;
 }
 
@@ -245,7 +238,7 @@ section {
     font-size: 1.3rem;
     color: #fff;
     font-weight: 600;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    text-shadow: 0 2px 4px rgba(0,0,0,1);
 }
 
 .card ul li {
@@ -255,7 +248,7 @@ section {
     padding-left: 20px;
     position: relative;
     word-wrap: break-word;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+    text-shadow: 0 1px 3px rgba(0,0,0,1);
 }
 
 .card ul li::before {
@@ -278,9 +271,9 @@ section {
     padding: 5px 15px;
     border-radius: 20px;
     font-size: 0.85rem;
-    /* Fundo dos tags precisa ter cor senão ficam invisíveis */
-    background: rgba(0, 0, 0, 0.5); 
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    /* Fundo preto para leitura, pois o card é transparente */
+    background: rgba(0, 0, 0, 0.6); 
+    border: 1px solid rgba(255, 255, 255, 0.3);
     color: #fff;
     display: flex;
     align-items: center;
@@ -458,20 +451,19 @@ section {
     text-align: right;
 }
 
-/* SONHOS */
+/* SONHOS (Deixei transparente também para seguir o padrão) */
 .dreams-section {
     text-align: center;
     padding: 80px 0;
 }
 
 .dream-box {
-    /* Fundo comum do quadrado de sonhos, mantive o gradiente para destaque, mas se quiser transparente também, pode mudar */
-    background: linear-gradient(135deg, rgba(255, 94, 142, 0.2), rgba(214, 51, 76, 0.2));
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: transparent !important;
+    border: 1px solid var(--glass-border);
     padding: 50px 30px;
     border-radius: 25px;
-    backdrop-filter: blur(15px);
-    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    /* Removido o gradiente e blur */
+    box-shadow: var(--glass-shadow);
     max-width: 800px;
     margin: 0 auto;
 }
@@ -487,6 +479,7 @@ section {
     font-size: 1.3rem;
     color: #f0f0f0;
     font-style: italic;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }
 
 /* FOOTER */
@@ -510,4 +503,4 @@ footer {
     .avatar { width: 160px; height: 160px; }
     .video-controls { opacity: 1; padding-bottom: 20px; }
     .video-time { font-size: 0.7rem; min-width: 70px; }
-   }
+}
