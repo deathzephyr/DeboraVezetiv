@@ -12,7 +12,7 @@
     <!-- Canvas para as Pétalas -->
     <canvas id="petalCanvas"></canvas>
 
-    <!-- Botão de Engrenagem (Configurações) -->
+    <!-- Botão de Engrenagem (Simplificado) -->
     <div id="settings-btn" title="Configurações">⚙️</div>
 
     <!-- Painel de Configurações -->
@@ -189,42 +189,45 @@
             </div>
         </section>
 
-        <!-- VÍDEO COM PLAYER PERSONALIZADO -->
-        <section id="video" class="reveal">
-            <h2 class="section-title">Minha Edição</h2>
+        <!-- VÍDEO (Botão Único) -->
+        <section id="video" class="reveal video-section">
+            <!-- TÍTULO REMOVIDO CONFORME PEDIDO -->
             
-            <div class="custom-video-container">
-                <video id="mainVideo" poster="img2.jpeg" preload="metadata">
-                    <source src="video.mp4" type="video/mp4">
-                    Seu navegador não suporta vídeos HTML5.
-                </video>
-                
-                <!-- Botão Central de Play (Grande) -->
-                <div class="center-play-btn" id="centerPlayBtn">
-                    <svg viewBox="0 0 24 24" width="64" height="64">
-                        <path fill="#ff5e8e" d="M8 5v14l11-7z"/>
-                    </svg>
-                </div>
+            <!-- Botão para abrir -->
+            <button id="openVideoBtn" class="edit-button">
+                <span class="btn-icon">▶</span> Ver Minha Edit
+            </button>
 
-                <!-- Barra de Controles Inferior -->
-                <div class="video-controls">
-                    <!-- Botão Play/Pause pequeno -->
-                    <button class="control-btn" id="playPauseBtn">
-                        <svg viewBox="0 0 24 24" width="24" height="24" fill="#fff">
-                            <path d="M8 5v14l11-7z" id="playIcon"/>
-                            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" id="pauseIcon" style="display:none;"/>
+            <!-- Player Escondido Inicialmente -->
+            <div id="videoWrapper" class="hidden">
+                <div class="custom-video-container">
+                    <video id="mainVideo" poster="img2.jpeg" preload="metadata">
+                        <source src="video.mp4" type="video/mp4">
+                        Seu navegador não suporta vídeos HTML5.
+                    </video>
+                    
+                    <div class="center-play-btn" id="centerPlayBtn">
+                        <svg viewBox="0 0 24 24" width="64" height="64">
+                            <path fill="#ff5e8e" d="M8 5v14l11-7z"/>
                         </svg>
-                    </button>
-
-                    <!-- Barra de Progresso -->
-                    <div class="progress-area" id="progressArea">
-                        <div class="progress-bar" id="progressBar">
-                            <span class="progress-thumb"></span>
-                        </div>
                     </div>
 
-                    <!-- Timer -->
-                    <span class="video-time" id="videoTime">00:00 / 00:00</span>
+                    <div class="video-controls">
+                        <button class="control-btn" id="playPauseBtn">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="#fff">
+                                <path d="M8 5v14l11-7z" id="playIcon"/>
+                                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" id="pauseIcon" style="display:none;"/>
+                            </svg>
+                        </button>
+
+                        <div class="progress-area" id="progressArea">
+                            <div class="progress-bar" id="progressBar">
+                                <span class="progress-thumb"></span>
+                            </div>
+                        </div>
+
+                        <span class="video-time" id="videoTime">00:00 / 00:00</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -248,4 +251,4 @@
     <!-- Linkando o JS -->
     <script src="script.js"></script>
 </body>
-                </html>
+</html>
