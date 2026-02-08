@@ -123,32 +123,18 @@ function initVideoPlayer() {
 
     // Abrir o vídeo
     openBtn.addEventListener('click', () => {
-        openBtn.style.display = 'none'; // Esconde botão
+        openBtn.style.display = 'none'; // Esconde botão de abrir
         videoWrapper.classList.remove('hidden'); // Mostra player
-        
         // Pequeno scroll suave para o vídeo
         videoWrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
         
-        // Força a UI para estado de "Tocando" imediatamente
-        centerPlayBtn.style.display = 'none';
-        playIcon.style.display = 'none';
-        pauseIcon.style.display = 'block';
-
-        // Inicia o vídeo
-        const playPromise = video.play();
-
-        if (playPromise !== undefined) {
-            playPromise.then(_ => {
-                // Play iniciado com sucesso
-            })
-            .catch(error => {
-                console.log("Autoplay bloqueado ou erro:", error);
-                // Se falhar, mostra o botão de play central para o usuário clicar
-                centerPlayBtn.style.display = 'flex';
-                playIcon.style.display = 'block';
-                pauseIcon.style.display = 'none';
-            });
-        }
+        // CONFIGURAÇÃO PAUSADA (Conforme solicitado)
+        // O vídeo não rola, os ícones ficam no estado de pause
+        centerPlayBtn.style.display = 'flex'; // Mostra botão gigante
+        playIcon.style.display = 'block';     // Mostra ícone de Play
+        pauseIcon.style.display = 'none';     // Esconde ícone de Pause
+        
+        // NÃO chama video.play()
     });
 
     function togglePlay() {
