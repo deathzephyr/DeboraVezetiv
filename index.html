@@ -12,29 +12,6 @@
     <!-- Canvas para as Pétalas -->
     <canvas id="petalCanvas"></canvas>
 
-    <!-- Botão de Engrenagem (Simplificado) -->
-    <div id="settings-btn" title="Configurações">⚙️</div>
-
-    <!-- Painel de Configurações -->
-    <div id="settings-panel" class="settings-panel hidden">
-        <h3>Configurações</h3>
-        
-        <div class="control-group">
-            <label for="opacity-slider">Opacidade dos Quadrados:</label>
-            <input type="range" id="opacity-slider" min="0" max="1" step="0.1" value="0.1">
-        </div>
-
-        <div class="control-group">
-            <label>Formato das Fileiras:</label>
-            <div class="layout-buttons">
-                <button onclick="changeLayout('1')">1 Col</button>
-                <button onclick="changeLayout('2')">2 Cols</button>
-                <button onclick="changeLayout('3')">3 Cols</button>
-                <button onclick="changeLayout('auto')">Auto</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Camada escura sobre a imagem de fundo (img.jpeg) -->
     <div class="bg-overlay"></div>
 
@@ -189,19 +166,26 @@
             </div>
         </section>
 
-        <!-- VÍDEO (Botão Único) -->
+        <!-- SONHOS -->
+        <section id="sonhos" class="dreams-section reveal">
+            <div class="dream-box">
+                <h2>Meu Sonho</h2>
+                <p>
+                    "Meu maior sonho é aposentar meus pais e viver bem com meu marido."
+                </p>
+            </div>
+        </section>
+
+        <!-- VÍDEO -->
         <section id="video" class="reveal video-section">
-            <!-- TÍTULO REMOVIDO CONFORME PEDIDO -->
-            
-            <!-- Botão para abrir -->
             <button id="openVideoBtn" class="edit-button">
                 <span class="btn-icon">▶</span> Ver Minha Edit
             </button>
 
-            <!-- Player Escondido Inicialmente -->
             <div id="videoWrapper" class="hidden">
                 <div class="custom-video-container">
-                    <video id="mainVideo" poster="img2.jpeg" preload="metadata">
+                    <!-- POSTER REMOVIDO PARA MOSTRAR A CAPA DO VÍDEO -->
+                    <video id="mainVideo" preload="metadata">
                         <source src="video.mp4" type="video/mp4">
                         Seu navegador não suporta vídeos HTML5.
                     </video>
@@ -229,16 +213,6 @@
                         <span class="video-time" id="videoTime">00:00 / 00:00</span>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- SONHOS -->
-        <section id="sonhos" class="dreams-section reveal">
-            <div class="dream-box">
-                <h2>Meu Sonho</h2>
-                <p>
-                    "Meu maior sonho é aposentar meus pais e viver bem com meu marido."
-                </p>
             </div>
         </section>
 
