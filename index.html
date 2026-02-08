@@ -12,6 +12,29 @@
     <!-- Canvas para as Pétalas -->
     <canvas id="petalCanvas"></canvas>
 
+    <!-- Botão de Engrenagem (Configurações) -->
+    <div id="settings-btn" title="Configurações">⚙️</div>
+
+    <!-- Painel de Configurações -->
+    <div id="settings-panel" class="settings-panel hidden">
+        <h3>Configurações</h3>
+        
+        <div class="control-group">
+            <label for="opacity-slider">Opacidade dos Quadrados:</label>
+            <input type="range" id="opacity-slider" min="0" max="1" step="0.1" value="0.1">
+        </div>
+
+        <div class="control-group">
+            <label>Formato das Fileiras:</label>
+            <div class="layout-buttons">
+                <button onclick="changeLayout('1')">1 Col</button>
+                <button onclick="changeLayout('2')">2 Cols</button>
+                <button onclick="changeLayout('3')">3 Cols</button>
+                <button onclick="changeLayout('auto')">Auto</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Camada escura sobre a imagem de fundo (img.jpeg) -->
     <div class="bg-overlay"></div>
 
@@ -154,12 +177,27 @@
                         <span class="card-icon">🎶</span>
                         <h3>Sons</h3>
                     </div>
-                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 10px; font-size: 0.9rem;">Prefiro kpop, musiquinhas fofas e MPB.</p>
+                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 10px; font-size: 0.9rem;">
+                        Prefiro kpop, musiquinhas fofas e MPB. <br>
+                        <span style="color: var(--primary-pink); font-weight: bold;">Ela adora rock.</span>
+                    </p>
                     <ul>
                         <li>Música: The Perfect Pair</li>
-                        <li>Artistas: Beabadoobee e Jorge Ben</li>
+                        <!-- ATUALIZADO AQUI -->
+                        <li>Artistas: Beabadoobee, Jorge Ben, Metallica e Tim Maia</li>
                     </ul>
                 </div>
+            </div>
+        </section>
+
+        <!-- VÍDEO -->
+        <section id="video" class="reveal">
+            <h2 class="section-title">Minha Edição</h2>
+            <div class="video-container">
+                <video controls poster="img2.jpeg">
+                    <source src="video.mp4" type="video/mp4">
+                    Seu navegador não suporta a tag de vídeo.
+                </video>
             </div>
         </section>
 
