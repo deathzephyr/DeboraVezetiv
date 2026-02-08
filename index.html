@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debora Vitória Vezetiv de Souza</title>
+    <!-- Linkando o CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Canvas para as Pétalas -->
+    <canvas id="petalCanvas"></canvas>
+
+    <!-- Camada escura sobre a imagem de fundo (img.jpeg) -->
+    <div class="bg-overlay"></div>
+
+    <!-- HERO SECTION -->
+    <header class="hero">
+        <div class="hero-content">
+            <div class="profile-frame">
+                <img src="img2.jpeg" alt="Foto de Debora" class="avatar">
+            </div>
+            
+            <h1>Olá, eu sou a <span class="name-highlight">Debora Vezetiv</span></h1>
+            
+            <div class="age-badge" id="age-display">
+                Calculando...
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- SOBRE -->
+        <section id="sobre" class="reveal">
+            <div class="about-card">
+                <p>
+                    Sou <span class="highlight-text">Debora Vitória Vezetiv de Souza</span>. 
+                    Adoro escrever e treinar, e amo a época da Primavera. 
+                    Acredito que a generosidade move o mundo e estou sempre em busca de novos sonhos para conquistar.
+                </p>
+            </div>
+        </section>
+
+        <!-- PREFERÊNCIAS -->
+        <section id="preferencias" class="reveal">
+            <h2 class="section-title">Preferências</h2>
+            <div class="grid-container">
+                <!-- Card Cores -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">🎨</span>
+                        <h3>Cores</h3>
+                    </div>
+                    <div class="visual-tags">
+                        <div class="tag"><span class="color-dot" style="background: #ff4d88;"></span> Rosa</div>
+                        <div class="tag"><span class="color-dot" style="background: #d90429;"></span> Vermelho</div>
+                        <div class="tag"><span class="color-dot" style="background: #000000; border-color: #555;"></span> Preto</div>
+                    </div>
+                </div>
+
+                <!-- Card Animais e Natureza -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">🐾</span>
+                        <h3>Natureza</h3>
+                    </div>
+                    <ul>
+                        <li>Gosto de gatos, coelhos e cobras</li>
+                        <li>Flor favorita: Hibisco</li>
+                        <li>Estação: Primavera</li>
+                    </ul>
+                </div>
+
+                <!-- Card Hobbies -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">✨</span>
+                        <h3>Habilidades</h3>
+                    </div>
+                    <ul>
+                        <li>Escrever</li>
+                        <li>Treinar</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- GASTRONOMIA -->
+        <section id="culinaria" class="reveal">
+            <h2 class="section-title">Paladar</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">🍲</span>
+                        <h3>Comida & Bebida</h3>
+                    </div>
+                    <ul>
+                        <li>Favorita: Mingau</li>
+                        <li>Bebida: Vitamina de abacate</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">🍊</span>
+                        <h3>Frutas</h3>
+                    </div>
+                    <ul>
+                        <li>Tangerina</li>
+                        <li>Cenoura</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">🍬</span>
+                        <h3>Doces</h3>
+                    </div>
+                    <ul>
+                        <li>Bala Baiana</li>
+                        <li>Beijinho</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ENTRETENIMENTO -->
+        <section id="entretenimento" class="reveal">
+            <h2 class="section-title">Entretenimento</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">📺</span>
+                        <h3>Tela</h3>
+                    </div>
+                    <ul>
+                        <li>Filme: Como treinar seu dragão</li>
+                        <li>Séries: Brooklyn 99 e TBBT</li>
+                        <li>Animação: Como treinar seu dragão</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">🎌</span>
+                        <h3>Animes & Games</h3>
+                    </div>
+                    <ul>
+                        <li>Anime: Fairy Tail, Kuromukuro, Diário de uma Apotecária</li>
+                        <li>Jogos: Detroit: Become Human, Time Princess</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">🎶</span>
+                        <h3>Sons</h3>
+                    </div>
+                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 10px; font-size: 0.9rem;">Prefiro kpop, musiquinhas fofas e MPB.</p>
+                    <ul>
+                        <li>Música: The Perfect Pair</li>
+                        <li>Artistas: Beabadoobee e Jorge Ben</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SONHOS -->
+        <section id="sonhos" class="dreams-section reveal">
+            <div class="dream-box">
+                <h2>Meu Sonho</h2>
+                <p>
+                    "Meu maior sonho é aposentar meus pais e viver bem com meu marido."
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© Debora Vitória Vezetiv de Souza</p>
+    </footer>
+
+    <!-- Linkando o JS -->
+    <script src="script.js"></script>
+</body>
+</html>
