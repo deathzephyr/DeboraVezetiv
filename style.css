@@ -17,8 +17,11 @@
     --text-main: #ffffff;
     --text-secondary: #f8f9fa;
     
-    /* Configurações do Vidro (Glassmorphism) */
-    --glass-bg: rgba(255, 255, 255, 0.1);
+    /* Variável para controle de opacidade */
+    --glass-alpha: 0.1; 
+    
+    /* Configurações do Vidro (Glassmorphism) - Usa a variável acima */
+    --glass-bg: rgba(255, 255, 255, var(--glass-alpha));
     --glass-border: rgba(255, 255, 255, 0.2);
     --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
@@ -29,6 +32,9 @@ body {
     min-height: 100vh;
     line-height: 1.6;
     overflow-x: hidden;
+    
+    /* Cor de fundo preta para evitar o espaço branco no final */
+    background-color: #000;
     
     /* IMAGEM DE FUNDO (img.jpeg) */
     background-image: url('img.jpeg');
@@ -58,12 +64,106 @@ body {
     z-index: 9999;
 }
 
+/* =========================================
+   BOTÃO E PAINEL DE CONFIGURAÇÕES
+   ========================================= */
+#settings-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 10002; /* Acima do canvas */
+    background: rgba(255, 255, 255, 0.2);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255,255,255,0.3);
+    transition: transform 0.3s ease, background 0.3s;
+}
+
+#settings-btn:hover {
+    transform: rotate(90deg);
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.settings-panel {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    width: 250px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid var(--primary-pink);
+    border-radius: 15px;
+    padding: 20px;
+    z-index: 10001; /* Abaixo do botão, mas acima do resto */
+    backdrop-filter: blur(10px);
+    color: #fff;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.settings-panel.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+}
+
+.settings-panel h3 {
+    margin-bottom: 15px;
+    font-family: 'Playfair Display', serif;
+    color: var(--primary-pink);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 5px;
+}
+
+.control-group {
+    margin-bottom: 20px;
+}
+
+.control-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: #ddd;
+}
+
+#opacity-slider {
+    width: 100%;
+    cursor: pointer;
+}
+
+.layout-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+}
+
+.layout-buttons button {
+    padding: 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.layout-buttons button:hover {
+    background: var(--primary-pink);
+}
+
+/* =========================================
+   RESTANTE DO CSS
+   ========================================= */
 ul { list-style: none; }
 a { text-decoration: none; color: inherit; }
 
-/* =========================================
-   ANIMAÇÕES DE ENTRADA (SCROLL)
-   ========================================= */
+/* Animações de Entrada */
 .reveal {
     opacity: 0;
     transform: translateY(30px);
@@ -75,9 +175,7 @@ a { text-decoration: none; color: inherit; }
     transform: translateY(0);
 }
 
-/* =========================================
-   LAYOUT
-   ========================================= */
+/* Layout */
 .container {
     width: 100%;
     max-width: 900px;
@@ -114,9 +212,7 @@ section {
     border-radius: 2px;
 }
 
-/* =========================================
-   HERO SECTION
-   ========================================= */
+/* HERO */
 .hero {
     min-height: 90vh;
     display: flex;
@@ -169,9 +265,7 @@ section {
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-/* =========================================
-   CARDS
-   ========================================= */
+/* CARDS */
 .about-card {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
@@ -197,8 +291,9 @@ section {
 
 .grid-container {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* Padrão mobile */
     gap: 25px;
+    transition: all 0.3s ease;
 }
 
 .card {
@@ -219,6 +314,7 @@ section {
 }
 
 @media (min-width: 768px) {
+    /* Padrão Desktop (pode ser alterado pelo JS) */
     .grid-container {
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
@@ -289,8 +385,27 @@ section {
 }
 
 /* =========================================
-   SONHOS
+   VÍDEO SECTION
    ========================================= */
+.video-container {
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    position: relative;
+    background: #000;
+}
+
+video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 20px; 
+}
+
+/* SONHOS */
 .dreams-section {
     text-align: center;
     padding: 80px 0;
@@ -340,4 +455,4 @@ footer {
 @media (max-width: 400px) {
     .hero h1 { font-size: 2.2rem; }
     .avatar { width: 160px; height: 160px; }
-}
+   }
