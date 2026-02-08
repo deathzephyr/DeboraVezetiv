@@ -14,9 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
         ageDisplay.textContent = `${age} Anos`;
     }
 
-    // Inicializar Player e Layout Padrão
+    // Inicializar Player de Vídeo
     initVideoPlayer();
-    setDefaultLayout();
 });
 
 // 2. ANIMAÇÃO DE ENTRADA AO ROLAR
@@ -106,63 +105,7 @@ function animate() {
 animate();
 
 // ==========================================
-// 4. CONFIGURAÇÕES
-// ==========================================
-const settingsBtn = document.getElementById('settings-btn');
-const settingsPanel = document.getElementById('settings-panel');
-const opacitySlider = document.getElementById('opacity-slider');
-
-settingsBtn.addEventListener('click', (e) => {
-    e.stopPropagation(); 
-    settingsPanel.classList.toggle('hidden');
-});
-
-document.addEventListener('click', (e) => {
-    if (!settingsPanel.contains(e.target) && !settingsBtn.contains(e.target)) {
-        settingsPanel.classList.add('hidden');
-    }
-});
-
-opacitySlider.addEventListener('input', (e) => {
-    const val = e.target.value;
-    document.documentElement.style.setProperty('--glass-alpha', val);
-});
-
-// CORREÇÃO DO LAYOUT (Removido conflito de Media Query)
-window.changeLayout = function(type) {
-    const grids = document.querySelectorAll('.grid-container');
-    let gridTemplate = '';
-
-    switch(type) {
-        case '1': gridTemplate = '1fr'; break;
-        case '2': gridTemplate = 'repeat(2, 1fr)'; break;
-        case '3': gridTemplate = 'repeat(3, 1fr)'; break;
-        case 'auto': 
-            // Lógica "Auto" inteligente baseada na largura da tela
-            if(window.innerWidth > 768) {
-                gridTemplate = 'repeat(auto-fit, minmax(280px, 1fr))';
-            } else {
-                gridTemplate = '1fr';
-            }
-            break;
-    }
-
-    grids.forEach(grid => {
-        grid.style.gridTemplateColumns = gridTemplate;
-    });
-};
-
-// Define o layout padrão ao carregar para evitar bugs
-function setDefaultLayout() {
-    if(window.innerWidth > 768) {
-        changeLayout('auto');
-    } else {
-        changeLayout('1');
-    }
-}
-
-// ==========================================
-// 5. PLAYER DE VÍDEO
+// 4. PLAYER DE VÍDEO
 // ==========================================
 function initVideoPlayer() {
     const openBtn = document.getElementById('openVideoBtn');
@@ -182,10 +125,30 @@ function initVideoPlayer() {
     openBtn.addEventListener('click', () => {
         openBtn.style.display = 'none'; // Esconde botão
         videoWrapper.classList.remove('hidden'); // Mostra player
+        
         // Pequeno scroll suave para o vídeo
         videoWrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        // Tenta dar play automaticamente (alguns navegadores bloqueiam autoplay com som)
-        video.play().catch(e => console.log("Autoplay bloqueado pelo navegador"));
+        
+        // Força a UI para estado de "Tocando" imediatamente
+        centerPlayBtn.style.display = 'none';
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = 'block';
+
+        // Inicia o vídeo
+        const playPromise = video.play();
+
+        if (playPromise !== undefined) {
+            playPromise.then(_ => {
+                // Play iniciado com sucesso
+            })
+            .catch(error => {
+                console.log("Autoplay bloqueado ou erro:", error);
+                // Se falhar, mostra o botão de play central para o usuário clicar
+                centerPlayBtn.style.display = 'flex';
+                playIcon.style.display = 'block';
+                pauseIcon.style.display = 'none';
+            });
+        }
     });
 
     function togglePlay() {
@@ -228,4 +191,4 @@ function initVideoPlayer() {
         
         video.currentTime = (clickedOffsetX / progressWidth) * duration;
     });
-                                   }
+}
